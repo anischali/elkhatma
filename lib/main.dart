@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'model/Quraan.dart';
+
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(const KhatmaApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class KhatmaApp extends StatelessWidget {
+  const KhatmaApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -22,15 +25,15 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.amber,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const KhatmaMainPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class KhatmaMainPage extends StatefulWidget {
+  const KhatmaMainPage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -42,14 +45,14 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
-
+  
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<KhatmaMainPage> createState() => _KhatmaMainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _KhatmaMainPageState extends State<KhatmaMainPage> {
   int _counter = 0;
-
+  Quraan quraan = Quraan("lib/assets/quraan.json");
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
