@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'model/Quraan.dart';
+import 'model/quraan.dart';
 
 
 
