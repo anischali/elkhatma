@@ -52,7 +52,7 @@ class KhatmaMainPage extends StatefulWidget {
 
 class _KhatmaMainPageState extends State<KhatmaMainPage> {
   int _counter = 0;
-  Quraan quraan = Quraan("lib/assets/quraan.json");
+  Quraan quraan = Quraan("assets/model/quraan.json");
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has

@@ -3,6 +3,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/services.dart';
+
 class Sourate {
     final int order;
     final int revelationOrder;
@@ -11,6 +13,7 @@ class Sourate {
     final int pagesNum;
     final int hizbNum;
     final int partNum;
+    final String revelationPlace;
 
     Sourate(
         this.order, 
@@ -19,7 +22,8 @@ class Sourate {
         this.versesNum,
         this.pagesNum,
         this.hizbNum,
-        this.partNum);
+        this.partNum,
+        this.revelationPlace);
 
 
     Sourate.fromJson(Map<String, dynamic> json)
@@ -29,7 +33,8 @@ class Sourate {
             versesNum = json["verses"],
             pagesNum = json["pages"],
             hizbNum = json["hizb"],
-            partNum = json["part"];
+            partNum = json["part"],
+            revelationPlace = json["revelationPlace"];
 
     Map<String, dynamic> toJson() => {
         "order":order,
@@ -38,7 +43,8 @@ class Sourate {
         "versesNum":versesNum,
         "pagesNum":pagesNum,
         "hizbNum":hizbNum,
-        "partNum":partNum
+        "partNum":partNum,
+        "revelationPlace":revelationPlace
     };
 }
 
@@ -48,13 +54,17 @@ class Quraan {
 
     Quraan(this.database)
     {
-        File db = File(database);
-        var json = jsonDecode(db.readAsStringSync());
+        loadDatabase();
+    }
+
+    void loadDatabase() async
+    {
+        String db = await rootBundle.loadString(database);
+        var json = jsonDecode(db);
         for (var j in json) {
             sourates.add(Sourate.fromJson(j));
         }
     }
-
 
     void toJson()
     {
