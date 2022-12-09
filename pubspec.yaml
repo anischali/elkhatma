@@ -91,12 +91,12 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
-    - lib/assets/quraan.json
-    - lib/assets/settings.json
-    - lib/assets/khatma_ico.png
+    - assets/model/quraan.json
+    - assets/model/settings.json
+    - assets/img/khatma_ico.png
 
 flutter_icons:
-  image_path: "lib/assets/khatma_ico.png"
+  image_path: "assets/img/khatma_ico.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
   android: "launcher_icon"
   ios: true
