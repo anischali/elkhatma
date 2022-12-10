@@ -93,7 +93,9 @@ flutter:
   assets:
     - assets/model/quraan.json
     - assets/model/settings.json
+    - assets/model/strings.json
     - assets/img/khatma_ico.png
+    - assets/img/app_menu.png
 
 flutter_icons:
   image_path: "assets/img/khatma_ico.png"

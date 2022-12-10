@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 
 class Sourate {
@@ -13,7 +12,7 @@ class Sourate {
     final int pagesNum;
     final int hizbNum;
     final int partNum;
-    final String revelationPlace;
+    final int revelationPlace;
 
     Sourate(
         this.order, 
@@ -49,15 +48,10 @@ class Sourate {
 }
 
 class Quraan {
-    String database;
-    List<Sourate> sourates = <Sourate>[];
+    static String database = "assets/model/quraan.json";
+    static List<Sourate> sourates = <Sourate>[];
 
-    Quraan(this.database)
-    {
-        loadDatabase();
-    }
-
-    void loadDatabase() async
+    static void loadDatabase() async
     {
         String db = await rootBundle.loadString(database);
         var json = jsonDecode(db);
@@ -66,7 +60,7 @@ class Quraan {
         }
     }
 
-    void toJson()
+    static void toJson()
     {
         String json = jsonEncode(sourates);
         File db = File(database);

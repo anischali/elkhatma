@@ -1,0 +1,20 @@
+{
+    "AboutBtn":
+    {
+        "Ar":"من نحن؟",
+        "Fr":"A propos",
+        "En":"About"
+    },
+    "SettingsBtn":
+    {
+        "Ar":"الظبط",
+        "Fr":"Réglages",
+        "En":"Settings"
+    },
+    "AppBarBtn":
+    {
+        "Ar":"القائمة",
+        "Fr":"Menu",
+        "En":"Menu"
+    }
+}

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class Common {
 
-
+static const Color bordeau = const Color.fromRGBO(224, 0, 48, .8);
 static MaterialColor khatmaColor = MaterialColor(
-  const Color.fromRGBO(224, 0, 48, .8).value, 
+  bordeau.value, 
   const <int, Color>{
     50:Color.fromRGBO(224, 0, 48, .1),
     100:Color.fromRGBO(224, 0, 48, .2),
@@ -13,9 +13,8 @@ static MaterialColor khatmaColor = MaterialColor(
     400:Color.fromRGBO(224, 0, 48, .5),
     500:Color.fromRGBO(224, 0, 48, .6),
     600:Color.fromRGBO(224, 0, 48, .7),
-    700:Color.fromRGBO(224, 0, 48, .8),
+    700:bordeau,
     800:Color.fromRGBO(224, 0, 48, .9),
     900:Color.fromRGBO(224, 0, 48, 1)
   });  
-
 }
