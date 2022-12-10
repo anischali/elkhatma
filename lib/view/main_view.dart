@@ -58,7 +58,6 @@ class _KhatmaMainPageState extends State<KhatmaMainPage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(Settings.langString("AppBarBtn")),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
