@@ -11,6 +11,12 @@
         "Fr":"Réglages",
         "En":"Settings"
     },
+    "settingPageTitle":
+    {
+        "Ar":"لوحةالظبط",
+        "Fr":"Paneau réglages",
+        "En":"Settings panel"   
+    },
     "AppBarBtn":
     {
         "Ar":"القائمة",
@@ -28,5 +34,29 @@
         "Ar":"الختمات",
         "Fr":"Khatmat",
         "En":"Khatmat"
+    },
+    "languageLabel":
+    {
+        "Ar":"اللغة",
+        "Fr":"Langue",
+        "En":"Language"
+    },
+    "languageLabelAr":
+    {
+        "Ar":"العربية",
+        "Fr":"Arabe",
+        "En":"Arabic"
+    },
+    "languageLabelFr":
+    {
+        "Ar":"الفرنسية",
+        "Fr":"Français",
+        "En":"French"
+    },
+    "languageLabelEn":
+    {
+        "Ar":"الإنجليزية",
+        "Fr":"Anglais",
+        "En":"English"
     }
 }
