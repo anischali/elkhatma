@@ -43,7 +43,9 @@ class _KhatmaAdminPageState extends State<KhatmaAdminPage> {
           Switch(
             value: Settings.getSetting("adminPanel") == 1, 
             onChanged: (newValue) {
-              Settings.setSetting("adminPanel", newValue ? 1 : 0);
+              setState(() {
+                Settings.setSetting("adminPanel", newValue ? 1 : 0);
+              });
             },
             activeColor: Colors.green
           )
