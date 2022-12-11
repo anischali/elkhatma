@@ -16,5 +16,17 @@
         "Ar":"القائمة",
         "Fr":"Menu",
         "En":"Menu"
+    },
+    "adminPanelBtn":
+    {
+        "Ar":"لوحة الادارة",
+        "Fr":"Panneau d'administration",
+        "En":"Admin panel"
+    },
+    "mainPageTitle":
+    {
+        "Ar":"الختمات",
+        "Fr":"Khatmat",
+        "En":"Khatmat"
     }
 }

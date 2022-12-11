@@ -95,6 +95,8 @@ flutter:
     - assets/model/settings.json
     - assets/model/strings.json
     - assets/img/khatma_ico.png
+    - assets/img/khatma_ico_256.png
+
 
 flutter_icons:
   image_path: "assets/img/khatma_ico.png"

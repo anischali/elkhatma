@@ -1,5 +1,6 @@
 {
     "mode":"",
     "initialOrder":1,
-    "language":"Ar"
+    "language":"Ar",
+    "adminPanel":0
 }
