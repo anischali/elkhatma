@@ -58,5 +58,11 @@
         "Ar":"الإنجليزية",
         "Fr":"Anglais",
         "En":"English"
+    },
+    "AddKhatmaTooltip":
+    {
+        "Ar":"ختمة جديدة",
+        "Fr":"Ajouter une khatma",
+        "En":"Add new khatma" 
     }
 }

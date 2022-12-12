@@ -48,10 +48,10 @@ class Sourate {
 }
 
 class Quraan {
-    static String database = "assets/model/quraan.json";
-    static List<Sourate> sourates = <Sourate>[];
+    String database = "assets/model/quraan.json";
+    List<Sourate> sourates = <Sourate>[];
 
-    static void loadDatabase() async
+    void loadDatabase() async
     {
         String db = await rootBundle.loadString(database);
         var json = jsonDecode(db);
@@ -60,7 +60,7 @@ class Quraan {
         }
     }
 
-    static void toJson()
+    void toJson()
     {
         String json = jsonEncode(sourates);
         File db = File(database);

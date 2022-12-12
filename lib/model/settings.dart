@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:elkhatma/model/common.dart';
 import 'package:flutter/services.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
@@ -8,39 +9,19 @@ import 'package:path_provider/path_provider.dart';
 
 
 class Settings {
-  static String settingsFile = "assets/model/settings.json";
-  static String langFile = "assets/model/strings.json";
-  static Map<String, dynamic> settings = <String, dynamic>{};
-  static Map<String, dynamic> langStrings = <String, dynamic>{};
-  static LocalStorage settingsStorage = LocalStorage("settings.json");
+  static late LocalStorage settingsStorage;
   
   
-  static void loadSettingsAndLangs() async
+  static Future<void> loadSettingsAndLangs() async
   {
-    String str = "";
-    Directory appDataDir = await getApplicationDocumentsDirectory();
-    final elkhatmaDir = Directory("${appDataDir.path}/.elkhatma");
-    if (!elkhatmaDir.existsSync())
-    {
-      elkhatmaDir.createSync(recursive: true);
-      str = await rootBundle.loadString(settingsFile);
-      settings = jsonDecode(str);
-      settingsStorage = LocalStorage("settings.json", elkhatmaDir.path, settings);
-    }
-    else
-    {
-      settingsStorage = LocalStorage("settings.json", elkhatmaDir.path);
-    }
-
-    str = await rootBundle.loadString(langFile);
-    langStrings = jsonDecode(str);
+    settingsStorage = Common.localStorages["settings"]!;
   }
 
   static String langString(String key)
   {
-    if (langStrings.containsKey(key))
+    if (Common.langStrings.containsKey(key))
     {
-      return langStrings[key]?[settingsStorage.getItem("language")] as String;
+      return Common.langStrings[key]?[settingsStorage.getItem("language")] as String;
     }
     return ""; 
   }

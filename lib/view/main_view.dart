@@ -1,10 +1,13 @@
+import 'package:elkhatma/controller/khatma_controller.dart';
+import 'package:elkhatma/model/common.dart';
+import 'package:elkhatma/model/khatma.dart';
 import 'package:elkhatma/view/side_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:elkhatma/model/settings.dart';
-import 'package:elkhatma/model/quraan.dart';
 
 
 class KhatmaMainPage extends StatefulWidget {
+  late KhatmaController khatmaController;
   KhatmaMainPage({super.key, required this.title})
   {
     initialize();
@@ -21,22 +24,33 @@ class KhatmaMainPage extends StatefulWidget {
 
   final String title;
   
-  void initialize()
+  void initialize() async
   {
-    Quraan.loadDatabase();
-    Settings.loadSettingsAndLangs();
+    await Common.setup();
+    await Settings.loadSettingsAndLangs();
+
+    khatmaController = KhatmaController();
+  }
+
+  void AddNewKhatmaCallback(Khatma k)
+  {
+    khatmaController.putKhatma(k);
   }
 
   @override
-  State<KhatmaMainPage> createState() => _KhatmaMainPageState();
+  State<KhatmaMainPage> createState() => _KhatmaMainPageState(AddNewKhatmaCallback);
 }
 
 class _KhatmaMainPageState extends State<KhatmaMainPage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
+  final Function onAddNewKhatmaCallback;
+
+  _KhatmaMainPageState(this.onAddNewKhatmaCallback);
+
+  void addNewKhatma() {
     setState(() {
-      _counter++;
+        Khatma k = Khatma(DateTime.now().toLocal(), 1, 1);
+        onAddNewKhatmaCallback(k);
     });
   }
 
@@ -77,20 +91,12 @@ class _KhatmaMainPageState extends State<KhatmaMainPage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          children: <Widget>[],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: addNewKhatma,
+        tooltip: Settings.langString("AddKhatmaTooltip"),
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
