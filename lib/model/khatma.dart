@@ -1,6 +1,9 @@
 import 'dart:convert';
+
 import 'package:elkhatma/model/common.dart';
+import 'package:intl/intl.dart';
 import 'package:localstorage/localstorage.dart';
+
 
 class KhatmaPart
 {
@@ -38,9 +41,9 @@ class KhatmaPart
 
 class Khatma
 {
-  DateTime beginDate;
-  int days;
-  int mode;
+  DateTime beginDate = DateTime.now().toLocal();
+  int days = 1;
+  int mode = 1;
   int progress = 0;
   List<KhatmaPart> khatmaParts = <KhatmaPart>[];
   
@@ -51,20 +54,33 @@ class Khatma
     this.mode
   );
 
-  Khatma.fromJson(Map<String, dynamic> json)
-    : beginDate = DateTime.parse(json["beginDate"]).toLocal(),
-      days = json["days"],
-      mode = json["mode"],
-      progress = json["progress"],
-      khatmaParts = json["khatmaParts"];
-  
+  Khatma.fromJson(Map<String, dynamic> json) {
+      
+
+      beginDate = DateTime.parse(json["beginDate"]).toLocal();
+      days = json["days"];
+      mode = json["mode"];
+      progress = json["progress"];      
+      List<dynamic> lp = json["khatmaParts"] ?? <dynamic>[];
+      for (var element in lp) {
+        khatmaParts.add(KhatmaPart.fromJson(element));
+      }
+
+  }
+
   Map<String, dynamic> toJson() => {
     "beginDate":beginDate.toLocal().toString(),
     "days":days,
     "mode":mode,
     "progress":progress,
-    "khatmaParts": jsonEncode(khatmaParts)
+    "khatmaParts": khatmaParts
   };
+
+  @override
+  String toString() {
+    final f = DateFormat('yyyy-MM-dd hh:mm');
+    return "${f.format(beginDate)}\t$days\t$progress";
+  }
 
 }
 
@@ -72,9 +88,28 @@ class Khatma
 class Khatmat
 {
   late LocalStorage khatmatStorage;
+  Map<String, Khatma> khatmats = <String, Khatma>{};
 
   Khatmat()
   {
-    khatmatStorage = Common.localStorages["khatmat"]!;
+    khatmatStorage = Common.localStorages["khatmats"]!;
+    var kh = khatmatStorage.getItem("khatmats") ?? <String, Khatma>{};
+    for (MapEntry<String, dynamic> k in kh.entries)
+    {
+      khatmats[k.key] = Khatma.fromJson(k.value);
+    }
+  }
+
+
+  void addKhatmat(Khatma k)
+  {
+    khatmats[k.beginDate.hashCode.toString()] = k;
+    khatmatStorage.setItem("khatmats", khatmats);
+  }
+
+
+  List<Khatma> getKhatmats()
+  {
+    return khatmats.values.toList(growable: false);
   }
 }

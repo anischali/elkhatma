@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:elkhatma/model/common.dart';
 import 'package:elkhatma/model/khatma.dart';
 
 
@@ -7,18 +11,23 @@ class KhatmaController {
   KhatmaController()
   {
     khatmats = Khatmat();
-  }  
+  }
 
 
   void addKhatma(int days, int mode)
   {
     DateTime date = DateTime.now().toLocal();
     Khatma k = Khatma(date, days, mode);
-    khatmats.khatmatStorage.setItem(date.toString(), k);
+    khatmats.addKhatmat(k);
   }
 
   void putKhatma(Khatma k)
   {
-    khatmats.khatmatStorage.setItem(k.beginDate.hashCode.toString(), k);
+    khatmats.addKhatmat(k);
+  }
+
+  List<Khatma> getKhatmats()
+  {
+    return khatmats.getKhatmats();
   }
 }

@@ -2,6 +2,7 @@ import 'package:elkhatma/controller/khatma_controller.dart';
 import 'package:elkhatma/model/common.dart';
 import 'package:elkhatma/model/khatma.dart';
 import 'package:elkhatma/view/side_panel.dart';
+import 'package:elkhatma/view/common.dart' as vcom;
 import 'package:flutter/material.dart';
 import 'package:elkhatma/model/settings.dart';
 
@@ -26,31 +27,70 @@ class KhatmaMainPage extends StatefulWidget {
   
   void initialize() async
   {
-    await Common.setup();
-    await Settings.loadSettingsAndLangs();
-
-    khatmaController = KhatmaController();
+    await Common.setup().then((value) async { 
+      await Settings.loadSettingsAndLangs().then((value1){
+        khatmaController = KhatmaController();
+      });
+    });
   }
 
-  void AddNewKhatmaCallback(Khatma k)
+  void addNewKhatmaCallback(Khatma k)
   {
     khatmaController.putKhatma(k);
   }
 
+  List<Khatma> getKhatmats()
+  {
+    return khatmaController.getKhatmats();
+  }
+
   @override
-  State<KhatmaMainPage> createState() => _KhatmaMainPageState(AddNewKhatmaCallback);
+  // ignore: no_logic_in_create_state
+  State<KhatmaMainPage> createState() => _KhatmaMainPageState(addNewKhatmaCallback, getKhatmats);
 }
 
 class _KhatmaMainPageState extends State<KhatmaMainPage> {
 
   final Function onAddNewKhatmaCallback;
+  final Function getAllKhatmatsCallback;
+  List<Widget> khatmatsView = <Widget>[];
 
-  _KhatmaMainPageState(this.onAddNewKhatmaCallback);
+  _KhatmaMainPageState(this.onAddNewKhatmaCallback, this.getAllKhatmatsCallback);
 
   void addNewKhatma() {
     setState(() {
         Khatma k = Khatma(DateTime.now().toLocal(), 1, 1);
         onAddNewKhatmaCallback(k);
+    });
+    refresh();
+  }
+
+  void refresh()
+  {
+    setState(() {
+      khatmatsView = <Widget>[];
+      List<Khatma> ks = getAllKhatmatsCallback();
+      for (Khatma k in ks)
+      {
+        khatmatsView.add(
+          ExpansionTile(
+            leading: const Icon(Icons.menu_book),
+            title: Text(k.toString()),
+            textColor: vcom.Common.bordeau,
+            iconColor: vcom.Common.bordeau,
+            children: [
+              IconButton(onPressed: (){}, icon: const Icon(Icons.delete)),
+              IconButton(onPressed: (){}, icon: const Icon(Icons.check))
+            ],
+          )
+          /*ListTile (
+            leading: const Icon(Icons.menu_book),
+            title: Text(k.toString()),
+            textColor: vcom.Common.bordeau,
+            iconColor: vcom.Common.bordeau
+          )*/
+        );
+      }
     });
   }
 
@@ -71,28 +111,9 @@ class _KhatmaMainPageState extends State<KhatmaMainPage> {
         automaticallyImplyLeading: true,
       ),
       drawer: const KhatmaMenu(),
-      onDrawerChanged: (isOpened) => setState(() {}),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[],
-        ),
+      onDrawerChanged: (isOpened) => refresh(),
+      body: ListView(
+        children: khatmatsView,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: addNewKhatma,

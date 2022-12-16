@@ -21,7 +21,7 @@ class Settings {
   {
     if (Common.langStrings.containsKey(key))
     {
-      return Common.langStrings[key]?[settingsStorage.getItem("language")] as String;
+      return Common.langStrings[key]?[settingsStorage.getItem("language") ?? "Ar"] as String;
     }
     return ""; 
   }
